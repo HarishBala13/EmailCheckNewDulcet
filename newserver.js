@@ -69,7 +69,7 @@ app.post('/dbregister',async(req,res)=>{
             }
         });
         });
-        // res.render("login");
+        res.render("login");
 });
 
 app.listen(2500,(err)=>{
