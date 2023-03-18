@@ -4,16 +4,14 @@
     <title>Login</title>
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="/css/login.css">
-    <link rel="icon" href="/images/logo.png">
+    <link rel="stylesheet" href="/assets/login.css">
+    <link rel="icon" href="/assets/images/logo.png">
     </head>
     <body>
           <div class="login">
           <form id="form" class="form" action="/dblogin" method="post" onsubmit="return submitvalidate()">
             <h2 id="h2">Dulcet Login</h2>
-            <%if(message){%>
-              <p><%=message%></p>
-            <%} %>
+      
           <input type="text" placeholder="Enter your email" id="email" name="email" onkeyup="emailerror()">
           <small id="error1">Error Message</small>
           <input type="password" placeholder="Enter your password" id="set_password" name="set_password" onkeyup="spasserror()">
@@ -65,7 +63,7 @@
     }
     
     function submitvalidate(){
-      if(count>1) return true;
+      if(count>2) return true;
       else return false;
     }
         </script>

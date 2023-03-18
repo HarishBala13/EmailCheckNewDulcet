@@ -4,7 +4,7 @@ const nodemailer = require("nodemailer");
 require("path");
 require("dotenv").config();
 app.use(express.urlencoded({extended:false}));
-app.use('/assets',express.static('/public'));
+app.use('/assets', express.static('/public'));
 
 app.set("view engine","ejs");
 app.get('/',(req,res)=>{
@@ -43,7 +43,7 @@ app.post('/dbregister',async(req,res)=>{
                 }                
             });
         });
-        
+
         var mailoptions={
         from:process.env.EMAIL_ID,
         to:email,
@@ -57,17 +57,21 @@ app.post('/dbregister',async(req,res)=>{
         <p style="text-align:justify;">Thanks,<br>The Dulcet Team.</p>
         </div>`
         };
-        transporter.sendMail(mailoptions,(err,info)=>{
-        if(err) {
-            throw err;
-        }
-        else{
-        console.log('email sent : '+info.response);
-    }
-});
-        res.render("login");
+        await new Promise((resolve,reject)=>{
+            transporter.sendMail(mailoptions,(err,info)=>{
+                if(err) {
+                    reject(err);
+                    console.error(err);
+                }
+                else{
+                console.log('email sent : '+info.response);
+                resolve(info);
+            }
+        });
+        });
+        // res.render("login");
 });
 
-app.listen(600,(err)=>{
-    console.log("port is connected @600");
+app.listen(2500,(err)=>{
+    console.log("port is connected @2500");
 });
