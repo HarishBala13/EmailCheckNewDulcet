@@ -1,41 +1,51 @@
 const express=require("express");
 const app=express();
-const path=require("path");
-const ejs=require("ejs");
-var nodemailer=require("nodemailer");
-
-
-
+const nodemailer = require("nodemailer");
+require("path");
+require("dotenv").config();
 app.use(express.urlencoded({extended:false}));
 app.use('/assets',express.static('/public'));
 
 app.set("view engine","ejs");
-
 app.get('/',(req,res)=>{
     res.render("home");
 });
-
-app.get('/register',(req,res)=>{    
+app.get('/register',(req,res)=>{
     res.render("register");
 });
-app.post('/dbregister',(req,res)=>{
+app.post('/dbregister',async(req,res)=>{
     const email=req.body.email;
     const name=req.body.name;    
     console.log("Hostname : "+req.hostname);
     host=req.get('host');
     console.log("Host - "+host);
+
     var transporter=nodemailer.createTransport({
         service:'gmail',
-        host: "2k19me016@kiot.ac.in",
+        host: "smtp.gmail.com",
         port: 465,
         secure: true,
         auth:{
-            user:'2k19me016@kiot.ac.in',
-            pass:'harish@13kiot'
+            user:process.env.EMAIL_ID,
+            pass:process.env.EMAIL_PASSWORD
         }
         });
+
+        await new Promise((resolve, reject)=>{
+            transporter.verify(function (error, success) {
+                if(error){
+                    console.log(error);
+                    reject(error);
+                }
+                else{
+                    console.log("server is ready");
+                    resolve(success);
+                }                
+            });
+        });
+        
         var mailoptions={
-        from:'2k19me016@kiot.ac.in',
+        from:process.env.EMAIL_ID,
         to:email,
         subject:'Thanks for Registering',
         text:`Hi `+name,
@@ -58,15 +68,6 @@ app.post('/dbregister',(req,res)=>{
         res.render("login");
 });
 
-app.get('/logout',(req,res)=>{
-    res.render("login");
-});
-
-app.get('/gmail',(req,res)=>{
-    res.render("gmail");
-});
-
-app.listen(2002,(error,res)=>{
-    if(error) console.log(error);
-    console.log("Connected and Listening the port 2002");
+app.listen(600,(err)=>{
+    console.log("port is connected @600");
 });
