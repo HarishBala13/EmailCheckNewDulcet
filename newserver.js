@@ -4,7 +4,7 @@ const nodemailer = require("nodemailer");
 require("path");
 require("dotenv").config();
 app.use(express.urlencoded({extended:false}));
-app.use('/assets', express.static('/public'));
+// app.use('/assets', express.static('/public'));
 
 app.set("view engine","ejs");
 app.get('/',(req,res)=>{
@@ -51,7 +51,7 @@ app.post('/dbregister',async(req,res)=>{
         text:`Hi `+name,
         html:`<div>
         <h4 style="font-size:20px;">Thanks for choosing our Service</h4>
-        <img style=" width: 65px; height: 45px; border-radius: 50%; " src="https://drive.google.com/file/d/16LrAcB0Jnw-4fBrM9bX5KVZyLwgwDka7/view?usp=share_link" alt="Dulcet logo">
+        <img style=" width: 65px; height: 45px; border-radius: 50%; " src="https://embarrassed-fawn-gabardine.cyclic.app/assets/images/logo.png" alt="Dulcet logo">
         <p style="text-align:justify;">We are happy to announce that you are a valuable customer to us and we won't let you down in any situation</p>
         <p style="text-align:justify; color:#0fd6d6;">Once a Dulcet user always a Ghost</p>
         <p style="text-align:justify;">Thanks,<br>The Dulcet Team.</p>
